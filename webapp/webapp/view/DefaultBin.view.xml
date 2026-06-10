@@ -1,0 +1,118 @@
+<mvc:View
+	id="pod---defaultbin--view"
+	controllerName="com.sz.packoutbdlv.controller.DefaultBin"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:layout="sap.ui.layout"
+	xmlns:smartField="sap.ui.comp.smartfield"
+>
+	<Page
+		id="pod---defaultbin--page"
+		showHeader="false"
+		backgroundDesign="Solid"
+		busy="{global>/busy}"
+	>
+		<content>
+			<form:SimpleForm
+				id="pod---defaultbin--page--form"
+				class="sapUiLargeMarginTop"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				labelSpanXL="5"
+				labelSpanL="5"
+				labelSpanM="5"
+				labelSpanS="12"
+				adjustLabelSpan="false"
+				emptySpanXL="4"
+				emptySpanL="4"
+				emptySpanM="4"
+				emptySpanS="0"
+				columnsXL="1"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false"
+			>
+				<smartField:SmartLabel
+					id="pod---defaultbin--workcenter--label"
+					labelFor="pod---defaultbin--workcenter--input"
+					text="{/#PackingStation/EWMWorkCenter/@sap:label}"
+				/>
+				<smartField:SmartField
+					id="pod---defaultbin--workcenter--input"
+					value="{
+						path: 'EWMWorkCenter',
+						formatter: '.formatUpperCase'
+					}"
+					editable="true"
+					visible="true"
+					change="onWorkCenterChange"
+					textInEditModeSource="ValueListNoValidation"
+				/>
+				<Label
+					id="pod---defaultbin--storagebin--label"
+					labelFor="pod---defaultbin--storagebin--input"
+					text="{/#PackingStation/EWMStorageBin/@sap:label}"
+					required="false"
+				/>
+				<smartField:SmartField
+					id="pod---defaultbin--storagebin--input"
+					value="{
+						path: 'EWMStorageBin',
+						formatter: '.formatUpperCase'
+					}"
+					editable="true"
+					visible="true"
+					mandatory="false"
+					change="onStorageBinChange"
+				/>
+				<Label
+					id="pod---defaultbin--modeselection--label"
+					text="{i18n>modeSelectionLable}"
+					labelFor="mode-selection"
+					visible="{=${global>/isOnCloud} === true || ${packingMode>/selectedMode} === 'internl' ? false : true}"
+				/>
+				<Select
+					class="sapUiContentPadding"
+					ariaLabelledBy="mode-selection"
+					id="mode-selection"
+					items="{packingMode>/modes}"
+					change="onPackingModeChange"
+					visible="{=${global>/isOnCloud} === true || ${packingMode>/selectedMode} === 'internl' ? false : true}"
+				>
+					<core:Item
+						id="pod---defaultbin--packmode--select"
+						key="{packingMode>key}"
+						text="{packingMode>text}"
+					/>
+				</Select>
+				<Label
+					id="pod---defaultbin--featureselection--label"
+					text="{i18n>featureSelectionLabel}"
+					labelFor="feature-selection"
+					visible="{=${global>/isOnCloud} === true || ${packingMode>/selectedMode} === 'internl' ? false : true}"
+				/>
+				<Label
+					id="pod---defaultbin--startpacking--label"
+					text="{i18n>startPacking}"
+					visible="false"
+				/>
+				<layout:HorizontalLayout id="pod---defaultbin--page--form--layout">
+					<Button
+						id="start-packing-button"
+						enabled="false"
+						text="{i18n>startPacking}"
+						press="onStartPacking"
+						type="Emphasized"
+					/>
+				</layout:HorizontalLayout>
+			</form:SimpleForm>
+			<Input
+				id="dummy-input"
+				visible="true"
+				class="dummyCss"
+			/>
+		</content>
+	</Page>
+</mvc:View>

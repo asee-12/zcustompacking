@@ -1,0 +1,13 @@
+sap.ui.define(["sap/ui/model/json/JSONModel"], function (e) {
+  "use strict";
+  return new e({
+    otherMaterials: [],
+    favoriteMaterials: [],
+    currentMaterial: {},
+    materialLayout: [],
+    selectedMaterialId: "",
+    defaultMaterialId: "",
+    originalMaterialId: "",
+  });
+});
+//# sourceMappingURL=Material.js.map

@@ -1,0 +1,35 @@
+<mvc:View id="pod---main--view" controllerName="com.sz.packoutbdlv.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<Page showHeader="false" id="appPage" busy="{global>/busy}" floatingFooter="true">
+		<OverflowToolbar design="Transparent" height="3rem" id="pod---main---overflowtoolbar">
+			<Title id="pod---main--title" class="sapUiMediumMarginBegin"
+				text="{parts:[{path:'global>/bin'}, {path:'global>/workstation'}, {path: 'global>/warehouseNumber'}], formatter:'.formatTitle'}"></Title>
+			<ToolbarSpacer id="_IDGenToolbarSpacer1" />
+			<Button id="idBtnRateShop" text="Rate Shop" type="Ghost" visible="{= ${global>/applicationFeatures/0/disabled} === false }" press="getRateShops"
+				enabled="{= ${global>/sourceId} !== '' }"/>
+		</OverflowToolbar>
+		<content>
+			<l:Grid class="sapUiTinyMargin" id="pod---main--grid" >
+				<mvc:XMLView viewName="com.sz.packoutbdlv.view.Source" id="id-source-view" type="XML">
+					<mvc:layoutData>
+						<l:GridData span="XL6 L6 M12 S12" id="pod---main--source--layout" ></l:GridData>
+					</mvc:layoutData>
+				</mvc:XMLView>
+				<mvc:XMLView viewName="com.sz.packoutbdlv.view.Ship" id="id-ship-view" type="XML">
+					<mvc:layoutData>
+						<l:GridData span="XL6 L6 M12 S12" id="pod---main--ship--layout" ></l:GridData>
+					</mvc:layoutData>
+				</mvc:XMLView>
+			</l:Grid>
+		</content>
+		<footer>
+			<OverflowToolbar id="pod---main--overflowtoolbar--msg">
+				<Button icon="sap-icon://message-popup" type="Emphasized" press="onMessagePopoverPress" visible="{= ${message>/}.length > 0 ? true : false}"
+					text="{= ${message>/}.length}" class="sapUiSmallMarginBegin" id="pod---main--message--button" />
+				<ToolbarSpacer id="pod---main--space"/>
+				<ToolbarSpacer id="pod---main--space2"/>
+				<Button id="leave-button" text="{i18n>leave}" press="onLeave" class="sapUiSmallMarginEnd"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

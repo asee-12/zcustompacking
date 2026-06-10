@@ -1,0 +1,2 @@
+sap.ui.define(["com/sz/packoutbdlv/workflows/WorkFlow"],function(n){"use strict";return function(e,o){var r=(new n).then(function(n,e){debugger},o);return r}});
+//# sourceMappingURL=FeatureSetChange.js.map

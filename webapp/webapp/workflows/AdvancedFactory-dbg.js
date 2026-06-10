@@ -1,0 +1,63 @@
+sap.ui.define([
+	"com/sz/packoutbdlv/workflows/Factory",
+	"com/sz/packoutbdlv/workflows/Advanced/ChangeMaterial",
+	"com/sz/packoutbdlv/workflows/Advanced/CloseShipHU",
+	"com/sz/packoutbdlv/workflows/Advanced/CreateShipHU",
+	"com/sz/packoutbdlv/workflows/Advanced/DeleteShipHU",
+	"com/sz/packoutbdlv/workflows/Advanced/PackAll",
+	"com/sz/packoutbdlv/workflows/Advanced/PackItem",
+	"com/sz/packoutbdlv/workflows/Advanced/PackPartial",
+	"com/sz/packoutbdlv/workflows/Advanced/PackWithDifference",
+	"com/sz/packoutbdlv/workflows/Advanced/ProductChange",
+	"com/sz/packoutbdlv/workflows/Advanced/SelectShipHU",
+	"com/sz/packoutbdlv/workflows/Advanced/SourceChange",
+	"com/sz/packoutbdlv/workflows/Advanced/UnpackAll",
+	"com/sz/packoutbdlv/workflows/Advanced/UnpackItem",
+	"com/sz/packoutbdlv/workflows/Advanced/QuantityChange",
+	"com/sz/packoutbdlv/workflows/Advanced/Leave",
+	"com/sz/packoutbdlv/workflows/Advanced/RestoreShipHU",
+	"com/sz/packoutbdlv/workflows/Advanced/Clear",
+	"com/sz/packoutbdlv/workflows/Advanced/Print",
+	"com/sz/packoutbdlv/workflows/Advanced/ShippingHUChange",
+	"com/sz/packoutbdlv/workflows/Advanced/FeatureSetChange",
+	"com/sz/packoutbdlv/workflows/Advanced/UpdateMiscCarrier",
+	"com/sz/packoutbdlv/workflows/Advanced/GetRateShops",
+	"com/sz/packoutbdlv/workflows/Advanced/UpdateTrackingNumber",
+	"com/sz/packoutbdlv/workflows/Advanced/CancelShipment",
+	"com/sz/packoutbdlv/workflows/Advanced/UpdateShipHuDimensions"
+], function(BaseObject, ChangeMaterial, CloseShipHU, CreateShipHU, DeleteShipHU, PackAll, PackItem, PackPartial, PackWithDifference,
+	ProductChange, SelectShipHU, SourceChange, UnpackAll, UnpackItem, QuantityChange, Leave, RestoreShipHU, Clear, Print,
+	ShippingHUChange, FeatureSetChange, UpdateMiscCarrier, GetRateShops, UpdateTrackingNumber, CancelShipment, UpdateShipHuDimensions) {
+	"use strict";
+	var Factory = BaseObject.extend("com.sz.packoutbdlv.workflows.AdvancedFactory", {
+		aImplemention: [
+			null,
+			SourceChange,
+			ProductChange,
+			PackItem,
+			PackWithDifference,
+			PackPartial,
+			UnpackItem,
+			UnpackAll,
+			SelectShipHU,
+			CloseShipHU,
+			ChangeMaterial,
+			DeleteShipHU,
+			CreateShipHU,
+			QuantityChange,
+			Leave,
+			RestoreShipHU,
+			PackAll,
+			Clear,
+			Print,
+			ShippingHUChange,
+			FeatureSetChange,
+			UpdateMiscCarrier,
+			GetRateShops,
+			UpdateTrackingNumber,
+			CancelShipment,
+			UpdateShipHuDimensions
+		]
+	});
+	return Factory;
+});

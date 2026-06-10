@@ -1,0 +1,424 @@
+sap.ui.define(
+  [
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "com/sz/packoutbdlv/utils/Util",
+    "com/sz/packoutbdlv/utils/Response",
+    "com/sz/packoutbdlv/modelHelper/OData",
+    "com/sz/packoutbdlv/modelHelper/Global",
+    "com/sz/packoutbdlv/utils/Const",
+  ],
+  function (e, t, r, a, i, n, o) {
+    "use strict";
+    var s;
+    var u = "read",
+      c = "create",
+      g = "remove",
+      m = "update";
+    return {
+      getPromise: function (e, t, i, n, o) {
+        var c = [];
+        if (r.isEmpty(t)) {
+          t = u;
+        }
+        if (r.isEmpty(i)) {
+          i = {};
+        }
+        if (r.isEmpty(n)) {
+          n = {};
+        }
+        if (!r.isEmpty(o)) {
+          s.setHeaders(o);
+        }
+        return new Promise(function (r, o) {
+          n = jQuery.sap.extend(n, {
+            success: function (e) {
+              if (e === undefined) {
+                r(e);
+              } else if (!a.parseError(e, o)) {
+                a.parseSuccess(e);
+                a.parseWarning(e);
+                e = e.results ? e.results : e;
+                r(e);
+              }
+            },
+            error: function (e) {
+              o(e);
+            },
+          });
+          if (t === u || t === g) {
+            c.push(e, n);
+          } else {
+            c.push(e, i, n);
+          }
+          s[t].apply(s, c);
+        });
+      },
+      init: function (e) {
+        s = e;
+        return this;
+      },
+      destroy: function () {
+        s = null;
+      },
+      setOdataHeader: function (e) {
+        s.setHeaders({ pack_mode: e });
+      },
+      logonPackStation: function () {
+        return this.getPromise(
+          "/PackingStationSet(EWMWarehouse='',EWMWorkCenter='')",
+        );
+      },
+      verifyWorkCenter: function (e) {
+        return this.getPromise(i.getWorkCenterPath(e), u, {});
+      },
+      verifyStorageBin: function (e) {
+        return this.getPromise(i.getDefaultBinPath(e));
+      },
+      verifySource: function (e) {
+        var t = {
+          SourceId: e,
+          EWMWarehouse: n.getWarehouseNumber(),
+          EWMWorkCenter: n.getPackStation(),
+          EWMStorageBin: "",
+        };
+        return this.getPromise("/ValidateActionSet", c, t);
+      },
+      verifyProduct: function (e) {
+        var t = i.getVarifyProductEANParameters(e);
+        return this.getPromise("/ValidateProduct", c, {}, { urlParameters: t });
+      },
+      getPackagingMaterials: function (r) {
+        var a = n.getWarehouseNumber();
+        var i = n.getPackStation();
+        var o = n.getBin();
+        var s = new e("EWMWarehouse", t.EQ, a);
+        var c = new e("EWMWorkCenter", t.EQ, i);
+        var g = new e("EWMStorageBin", t.EQ, o);
+        return this.getPromise("/PackMatSet", u, {}, { filters: [s, c, g] });
+      },
+      createShippingHU: function (e, t, r) {
+        var a = n.getBin();
+        if (a === "" && r !== "") {
+          a = r;
+        }
+        var i = {
+          HuId: e,
+          EWMWarehouse: n.getWarehouseNumber(),
+          EWMWorkCenter: n.getPackStation(),
+          PackagingMaterial: t,
+          EWMRefDeliveryDocumentNumber: "",
+          EWMStorageBin: a,
+          Type: "1",
+        };
+        return this.getPromise("/HUSet", c, i);
+      },
+      exceptionPack: function (e, t, r, a) {
+        var n = i.getExceptionPackParameters(e, t, r, a);
+        return this.getPromise("/Pack", c, {}, { urlParameters: n });
+      },
+      pack: function (e, t, r) {
+        var a = i.getPackParameters(e, t, r);
+        return this.getPromise(
+          "/Pack",
+          c,
+          {},
+          {
+            urlParameters: a,
+            changeSetId:
+              e.DocumentReltdStockDocUUID + e.DocumentReltdStockDocItemUUID,
+          },
+        );
+      },
+      packAll: function (e) {
+        var t = i.getPackAllParameters(e);
+        return this.getPromise("/Pack", c, {}, { urlParameters: t });
+      },
+      unpack: function (e, t) {
+        var r = i.getUnpackParameters(e, t);
+        return this.getPromise("/UnPack", c, {}, { urlParameters: r });
+      },
+      unpackAll: function (e) {
+        var t = i.getUnpackAllParameters(e);
+        return this.getPromise("/UnPack", c, {}, { urlParameters: t });
+      },
+      submitChanges: function (e) {
+        s.submitChanges(e);
+      },
+      getExceptionList: function () {
+        var r = n.getWarehouseNumber();
+        var a = n.getPackStation();
+        var i = new e("EWMWarehouse", t.EQ, r);
+        var o = new e("EWMWorkCenter", t.EQ, a);
+        return this.getPromise("/ExceptionListSet", u, {}, { filters: [i, o] });
+      },
+      getMaterialAndExceptionList: function () {
+        var e = this.getPackagingMaterials();
+        var t = this.getExceptionList();
+        return Promise.all([e, t]);
+      },
+      closeShipHandlingUnit: function () {
+        var e = i.getCloseShipHandlingUnitParameters();
+        return this.getPromise("/Close", c, {}, { urlParameters: e });
+      },
+      cancelShipHandlingUnit: function () {
+        var e = i.getCloseShipHandlingUnitParameters();
+        return this.getPromise("/CancelShipment", c, {}, { urlParameters: e });
+      },
+      cancelShipHandlingUnits: async function (e) {
+        let t = [];
+        for (let a = 0; a < e.length; a++) {
+          const n = e[a];
+          var r = i.getCloseShipHandlingUnitParametersById(n.Exidv);
+          const o = await this.getPromise(
+            "/CancelShipment",
+            c,
+            {},
+            { urlParameters: r },
+          );
+          t.push(o);
+        }
+        return t;
+      },
+      getScaleWeight: function () {
+        var e = i.getScaleWeightData();
+        return this.getPromise("/ScaleWeightSet", c, e);
+      },
+      verifySerialNumber: function (e, t) {
+        var r = i.getValidateSnParamters(e, t);
+        return this.getPromise("/ValidateSn", c, {}, { urlParameters: r });
+      },
+      changeMaterial: function (e) {
+        var t = i.getChangeMaterialParameters(e);
+        return this.getPromise("/ChangePackMat", c, {}, { urlParameters: t });
+      },
+      getHUSet: function (e, t) {
+        return this.getPromise(i.getHUPath(e, t));
+      },
+      getHUItemSet: function (e, t) {
+        return this.getPromise(i.getHUPath(e, t) + "/Items");
+      },
+      getHUODOSet: function (e, t) {
+        return this.getPromise(i.getHUPath(e, t) + "/ODOs");
+      },
+      getHUItems: function (e, t, a) {
+        if (!a) {
+          var i = this.getHUSet(e, t);
+        }
+        var n = this.getHUItemSet(e, t);
+        var o = this.getHUODOSet(e, t);
+        return Promise.all([i, n, o]).then(function (e) {
+          var t = e[0];
+          var a = e[1];
+          var i = e[2];
+          var n = {};
+          i.forEach(function (e) {
+            n[e.DocumentReltdStockDocUUID] = e;
+          });
+          a.forEach(function (e) {
+            e.AlterQuan = r.formatNumber(parseFloat(e.AlterQuan), 3);
+            e.Quan = r.formatNumber(parseFloat(e.Quan), 3);
+            e.NetWeight = r.formatNumber(parseFloat(e.NetWeight), 3, 3);
+            e.Volume = r.formatNumber(parseFloat(e.Volume), 3, 3);
+            e.QtyReduced = r.formatNumber(parseFloat(e.QtyReduced), 3);
+            if (e.StockItemNumber === "0") {
+              e.StockItemNumber = "";
+            }
+            var t = n[e.DocumentReltdStockDocUUID];
+            if (!r.isEmpty(t)) {
+              [
+                "CustomerName",
+                "PackInstr",
+                "ShipToAddress",
+                "ShipToAddress",
+                "CarrierService",
+                "CarrierServiceId",
+                "IsMiscCarrier",
+                "MiscCarrier",
+                "HasExportDelivery",
+              ].forEach((r) => (e[r] = t[r]));
+            }
+          });
+          return a;
+        });
+      },
+      updateHU: function (e, t) {
+        var r = i.getUpdateHUPath();
+        var a = {
+          HuId: e.HuId,
+          EWMWarehouse: e.EWMWarehouse,
+          EWMWorkCenter: e.EWMWorkCenter,
+          PackagingMaterial: e.PackagingMaterial,
+          WeightUoM: e.WeightUoM,
+          TotalWeight: t,
+          EWMRefDeliveryDocumentNumber: e.EWMRefDeliveryDocumentNumber,
+        };
+        return this.getPromise(r, m, a);
+      },
+      updateHuDimensions: function (e) {
+        var t = e.Length.toString();
+        var r = e.Width.toString();
+        var a = e.Height.toString();
+        var n = i.getUpdateDimensionsParameters(t, r, a);
+        return this.getPromise(
+          "/UpdateDimensions",
+          c,
+          {},
+          { urlParameters: n },
+        );
+      },
+      updateMiscCarrier: function (e, t) {
+        var r = i.getOdoPath(t);
+        var a = { MiscCarrier: e };
+        return this.getPromise(r, m, a);
+      },
+      getOdoDetails: function (e) {
+        var t = i.getOdoPath(e);
+        return this.getPromise(t);
+      },
+      deleteShippingHU: function () {
+        var e = i.getDeleteHUParameters();
+        return this.getPromise("/ChangePackMat", c, {}, { urlParameters: e });
+      },
+      getRuntimeEnvironment: function () {
+        return this.getPromise("/RuntimeEnvSet");
+      },
+      getWarehousePackingModes: function () {
+        return this.getPromise("/PackModeSet");
+      },
+      getApplicationFeatures: function () {
+        return this.getPromise("/ApplicationFeaturesSet");
+      },
+      terminateSession: function () {
+        var e = { "sap-terminate": "session" };
+        return this.getPromise("/LeavePackStation", c, {}, {}, e);
+      },
+      getAudiosList: function () {
+        var r = n.getWarehouseNumber();
+        var a = n.getPackStation();
+        var i = new e("EWMWarehouse", t.EQ, r);
+        var o = new e("EWMWorkCenter", t.EQ, a);
+        var s = new e("EWMStorageBin", t.EQ, "");
+        return this.getPromise("/AudioURISet", u, {}, { filters: [i, o, s] });
+      },
+      getOpenShippingHU: function () {
+        var r = n.getWarehouseNumber();
+        var a = n.getPackStation();
+        var i = n.getBin();
+        var o = new e("EWMWarehouse", t.EQ, r);
+        var s = new e("EWMWorkCenter", t.EQ, a);
+        var c = new e("EWMStorageBin", t.EQ, i);
+        var g = new e("IsPickHu", t.EQ, false);
+        return this.getPromise(
+          "/HUSet",
+          u,
+          {},
+          { filters: [o, s, c, g], urlParameters: { $expand: "Items" } },
+        );
+      },
+      triggerHuPrint: function (e) {
+        var t = e.map(function (e) {
+          return this.getPromise(
+            "/Print",
+            c,
+            {},
+            { urlParameters: i.getPrintParameters(e) },
+          );
+        }, this);
+        return Promise.all(t);
+      },
+      print: function () {
+        var e = n.getCurrentShipHandlingUnit();
+        return this.printAll(e);
+      },
+      printAll: function (e) {
+        var t = i
+          .getShipHandlingUnitsForPrint()
+          .filter((e) => e.TrackNum === "");
+        if (e !== undefined && e !== "") {
+          t = t.filter((t) => t.Huid === e);
+        }
+        var r = t.map(function (e) {
+          return this.getPromise(
+            "/CheckTrackNumberRequirement",
+            u,
+            {},
+            { urlParameters: i.getPrintParametersByHuid(e.Huid) },
+          );
+        }, this);
+        return Promise.all(r);
+      },
+      setChangeGroups: function (e) {
+        s.setChangeGroups(e);
+      },
+      setDeferredGroups: function (e) {
+        s.setDeferredGroups(e);
+      },
+      updateTrackingNumbers: function (e) {
+        var t = e.map(function (e) {
+          return i.getUpdateTrackingParameters(e.Huid, e.TrackNum);
+        });
+        var r = t.map(function (e) {
+          return new Promise(
+            function (t, r) {
+              this.getPromise(
+                "/UpdateTrackNumber",
+                c,
+                {},
+                { urlParameters: e, groupId: "update_trackNos" },
+              )
+                .then(function (e) {
+                  t({ data: e, error: null });
+                })
+                .catch(function (e) {
+                  t({ data: null, error: e });
+                });
+            }.bind(this),
+          );
+        }, this);
+        return Promise.all(r);
+      },
+      getItemWeight: function (a, o) {
+        if (r.isEmpty(a)) {
+          a = n.getSourceId();
+          o = n.getSourceType();
+        }
+        var s = n.getWarehouseNumber();
+        var c = n.getPackStation();
+        var g = n.getBin();
+        var m = new e("EWMWarehouse", t.EQ, s);
+        var l = new e("EWMWorkCenter", t.EQ, c);
+        var h = new e("EWMStorageBin", t.EQ, g);
+        var P = new e("SourceId", t.EQ, a);
+        var f = new e("SourceType", t.EQ, o);
+        var v = new e("PackagingMaterial", t.EQ, i.getPackageMaterial());
+        return this.getPromise(
+          "/HUItemWeightSet",
+          u,
+          {},
+          { filters: [m, l, h, P, f, v] },
+        );
+      },
+      getWorkCenterSet: function () {
+        var r = n.getWarehouseNumber();
+        var a = new e("EWMWarehouse", t.EQ, r);
+        return this.getPromise(
+          "/SearchHelpWorkCenterSet",
+          u,
+          {},
+          { filters: [a] },
+        );
+      },
+      getStorageBinSet: function () {
+        var r = n.getWarehouseNumber();
+        var a = new e("EWMWarehouse", t.EQ, r);
+        return this.getPromise("/SearchHelpBinSet", u, {}, { filters: [a] });
+      },
+      getRateShops: function (r) {
+        var a = new e("Carrier", t.EQ, r);
+        return this.getPromise("/RateShopSet", u, {}, { filters: [a] });
+      },
+    };
+  },
+);
+//# sourceMappingURL=ODataService.js.map

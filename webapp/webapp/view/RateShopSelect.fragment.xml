@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog id="rateShopDialog" showHeader="false" contentWidth="80%" contentHeight="80%" title="{i18n>rateShopDialog}">
+		<Table id="id-tab-rates-tab" items="{rateModel>/}" mode="SingleSelectMaster" includeItemInSelection="true"
+				headerText="{i18n>ratesHeader}" itemPress="onSelectNewRate">
+			<columns>
+				<Column id="col-carr"><Text id="col-carr-val" text="{/#RateShop/Carrier/@sap:label}"/></Column>
+				<Column id="col-name"><Text id="col-name-val" text="{/#RateShop/Name/@sap:label}"/></Column>
+				<Column id="col-service"><Text id="col-service-val" text="{/#RateShop/Service/@sap:label}"/></Column>
+				<Column id="col-descr"><Text id="col-descr-val" text="{/#RateShop/Description/@sap:label}"/></Column>
+				<Column id="col-listrate"><Text id="col-listrate-val" text="{/#RateShop/Listrate/@sap:label}"/></Column>
+				<Column id="col-billrate"><Text id="col-billrate-val" text="{/#RateShop/Billablerate/@sap:label}"/></Column>
+				<Column id="col-curr"><Text id="col-curr-val" text="{/#RateShop/Currency/@sap:label}"/></Column>
+				<Column id="col-timetransit"><Text id="col-timetransit-val" text="{/#RateShop/Timeintransit/@sap:label}"/></Column>
+				<Column id="col-dlvdat"><Text id="col-dlvdat-val" text="{/#RateShop/Deliverydate/@sap:label}"/></Column>
+				<Column id="col-priority"><Text id="col-priority-val" text="{/#RateShop/Priority/@sap:label}"/></Column>
+				<Column id="col-trnx"><Text id="col-trnx-val" text="{/#RateShop/Transactionid/@sap:label}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem id="rate-cols" type="Active">
+					<Text id="col-val-carr" 		text="{rateModel>Carrier}"/>
+					<Text id="col-val-name" 		text="{rateModel>Name}"/>
+					<Text id="col-val-service" 		text="{rateModel>Service}"/>
+					<Text id="col-val-descr" 		text="{rateModel>Description}"/>
+					<Text id="col-val-listrate" 	text="{rateModel>Billablerate}"/>
+					<Text id="col-val-billrate" 	text="{rateModel>Currency}"/>
+					<Text id="col-val-curr" 		text="{rateModel>Timeintransit}"/>
+					<Text id="col-val-timetransit" 	text="{rateModel>Deliverydate}"/>
+					<Text id="col-val-dlvdat" 		text="{rateModel>Priority}"/>
+					<Text id="col-val-trnx" 		text="{rateModel>Transactionid}"/>
+				</ColumnListItem>
+			</items>			
+		</Table>
+		<buttons>
+			<Button id="btn-close-rateshopdlg" text="{i18n>cancel}" press="onCloseRateShopDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,108 @@
+sap.ui.define(
+  [
+    "com/sz/packoutbdlv/controller/BaseController",
+    "sap/tl/ewm/lib/reuses1/controllers/Base.controller",
+    "com/sz/packoutbdlv/utils/Util",
+    "com/sz/packoutbdlv/service/ODataService",
+    "com/sz/packoutbdlv/modelHelper/OData",
+    "com/sz/packoutbdlv/utils/Const",
+    "sap/ui/model/json/JSONModel",
+    "com/sz/packoutbdlv/model/Message",
+    "com/sz/packoutbdlv/modelHelper/Message",
+    "sap/m/MessagePopoverItem",
+    "sap/m/MessagePopover",
+    "sap/m/MessageBox",
+    "com/sz/packoutbdlv/modelHelper/Global",
+    "com/sz/packoutbdlv/model/SerialNumber",
+    "com/sz/packoutbdlv/workflows/SimpleFactory",
+    "com/sz/packoutbdlv/workflows/AdvancedFactory",
+    "com/sz/packoutbdlv/modelHelper/PackingMode",
+    "com/sz/packoutbdlv/modelHelper/Material",
+  ],
+  function (e, t, o, i, s, n, a, l, c, r, p, u, v, g, m, d, h, M) {
+    "use strict";
+    return e.extend("com.sz.packoutbdlv.controller.BaseMain", {
+      sRouteName: "main",
+      init: function () {
+        t.prototype.initAccessCode.call(this);
+        this.setButtonToolTip("leave-button");
+      },
+      initModel: function () {
+        this.setModel(g, "serialNum");
+        this.setModel(l, "message");
+      },
+      onMessagePopoverPress: function (e) {
+        if (!this.oMessagePopover) {
+          this.initMessagePopover();
+        }
+        this.oMessagePopover.toggle(e.getSource());
+      },
+      initMessagePopover: function () {
+        var e = new r({ type: "{type}", title: "{text}" });
+        var t = new p({ items: { path: "/", template: e } });
+        t.setModel(l);
+        this.oMessagePopover = t;
+      },
+      formatTitle: function (e, t, i) {
+        if (o.isEmpty(i) || o.isEmpty(t) || o.isEmpty(e)) {
+          if (!o.isEmpty(i) && !o.isEmpty(t)) {
+            return this.getI18nText("pageTitleNoStorageBin", [t, i]);
+          } else {
+            return "";
+          }
+        }
+        return this.getI18nText("pageTitle", [e, t, i]);
+      },
+      onLeave: function (e) {
+        var t = !o.isEmpty(v.getCurrentShipHandlingUnit());
+        var i = t
+          ? this.getTextAccordingToMode("leaveMsgSaveHU", "leaveMsgSaveShipHU")
+          : this.getI18nText("leaveMsgWhenNoShipHU");
+        this.playAudio(n.WARNING);
+        u.warning(i, {
+          actions: [u.Action.OK, u.Action.CANCEL],
+          onClose: function (e) {
+            if (e === u.Action.OK) {
+              this.setBusy(true);
+              this.oWorkFlowFactory.getLeaveWorkFlow().run();
+            }
+          }.bind(this),
+        });
+      },
+      leavePage: function (e) {
+        var t = !o.isEmpty(v.getCurrentShipHandlingUnit());
+        var i = this.getOwnerComponent();
+        if (t) {
+          var s = this.getI18nText("leavePageMsg");
+          this.playAudio(n.WARNING);
+          u.warning(s, {
+            actions: [u.Action.OK, u.Action.CANCEL],
+            onClose: function (e) {
+              if (e === u.Action.OK) {
+                this.navBack(i);
+              }
+            }.bind(this),
+          });
+        } else {
+          this.navBack(i);
+        }
+      },
+      navBack: function (e) {
+        e.navigateBack.call(e, arguments);
+      },
+      onRouteMatched: function () {
+        this.getOwnerComponent()
+          .getService("ShellUIService")
+          .then(
+            function (e) {
+              e.setBackNavigation(this.leavePage.bind(this));
+            }.bind(this),
+            function (e) {
+              jQuery.sap.log.error("Cannot get ShellUIService", e);
+            },
+          );
+      },
+    });
+  },
+);
+//# sourceMappingURL=BaseMain.js.map

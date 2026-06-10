@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns:smarttable="sap.ui.comp.smarttable" xmlns:sfb="sap.ui.comp.smartfilterbar" id="pod---cancelshipmentdialog--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="cancelShipmentDialog" title="{i18n>cancelShipHu}" stretch="true" busy="{global>/busy}" busyIndicatorDelay="0">
+		<sfb:SmartFilterBar id="cancelShipFilterBar" entitySet="ShipDataSet" showClearOnFB="true">
+			<sfb:controlConfiguration>
+				<sfb:ControlConfiguration
+					id="cancelShipFilterBar-select"
+					controlType="dropDownList"
+					index="0"
+					key="cancelShipmentType"
+					label="{i18n>cancelShipCancelBy}"
+					mandatory="mandatory"
+					width="200px">
+					<sfb:customControl>
+						<Select id="cancelShipmentType--select" required="true" selectedKey="{filterSelectCSD>/selectedKey}">
+							<items>
+								<core:Item id="cancelShipmentType--select-01"
+									key="01"
+									text="{i18n>cancelShipType01}"/>
+								<core:Item id="cancelShipmentType--select-04"
+									key="04"
+									text="{i18n>cancelShipType04}"/>
+								<core:Item id="cancelShipmentType--select-07"
+									key="07"
+									text="{i18n>cancelShipType07}"/>
+							</items>
+						</Select>
+					</sfb:customControl>
+				</sfb:ControlConfiguration>
+				<sfb:ControlConfiguration id="cancelShipFilterBar-00" 
+					key="Lgnum" visible="false" filterType="single"/>
+				<sfb:ControlConfiguration id="cancelShipFilterBar-01" 
+					key="Docno" visible="{= ${filterSelectCSD>/selectedKey} === '01' }" visibleInAdvancedArea="true"
+					filterType="single"/>
+				<sfb:ControlConfiguration id="cancelShipFilterBar-04" 
+					key="Exidv" visible="{= ${filterSelectCSD>/selectedKey} === '04' }" visibleInAdvancedArea="true"
+					filterType="single"/>
+				<sfb:ControlConfiguration id="cancelShipFilterBar-07" 
+					key="Trackingnum" visible="{= ${filterSelectCSD>/selectedKey} === '07' }" visibleInAdvancedArea="true"
+					filterType="single"/>
+			</sfb:controlConfiguration>
+		</sfb:SmartFilterBar>
+		<smarttable:SmartTable id="cancelShipSmartTable" entitySet="ShipDataSet" useExportToExcel="false" showTablePersonalisation="false"
+			tableType="ResponsiveTable" smartFilterId="cancelShipFilterBar" beforeRebindTable="onBeforeShipDataSearch">
+			<Table id="cancelShipSmartTable--inner" mode="MultiSelect"/>
+		</smarttable:SmartTable>
+		<buttons>
+			<Button text="{i18n>cancelShipHu}" id="pod---batchnumberdialog--dialog--button0" press="onConfirmShipmentDialog"
+				type="Emphasized"/>
+			<Button text="{i18n>cancel}" id="pod---batchnumberdialog--dialog--button1" press="onCancelShipmentDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

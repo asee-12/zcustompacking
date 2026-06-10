@@ -1,0 +1,97 @@
+sap.ui.define(
+  [
+    "sap/ui/core/util/MockServer",
+    "com/sz/packoutbdlv/utils/Util",
+    "com/sz/packoutbdlv/localService/mockConfig",
+    "com/sz/packoutbdlv/Component",
+    "sap/ui/thirdparty/sinon",
+  ],
+  function (e, t, r, a, o) {
+    "use strict";
+    var s,
+      n = "com/sz/packoutbdlv/",
+      i = n + "localService/mockdata";
+    return {
+      init: function () {
+        this._mockComponent();
+        this._mockShell();
+        var e = jQuery.sap.getModulePath(n + "manifest", ".json"),
+          t = jQuery.sap.syncGetJSON(e).data;
+        s = this._initMockServerByDataSource(
+          t["sap.app"].dataSources.mainService,
+        );
+        var a = this._initMockServerByDataSource(
+          t["sap.app"].dataSources.defaultParametersService,
+        );
+        this.initSimulates(r);
+        s.start();
+        a.start();
+        jQuery.sap.log.info("Running the app with mock data");
+      },
+      _mockComponent: function () {
+        o.stub(a.prototype, "getComponentData").returns({
+          startupParameters: { Warehouse: ["EW1"], PackMode: [1] },
+        });
+      },
+      _mockShell: function () {},
+      _initMockServerByDataSource: function (t) {
+        jQuery.sap.getModulePath(n + "manifest", ".json");
+        var r = jQuery.sap.getUriParameters();
+        var a = jQuery.sap.getModulePath(i);
+        var o = jQuery.sap.getModulePath(
+          n + t.settings.localUri.replace(".xml", ""),
+          ".xml",
+        );
+        var s = /.*\/$/.test(t.uri) ? t.uri : t.uri + "/";
+        var u = new e({ rootUri: s });
+        e.config({
+          autoRespond: true,
+          autoRespondAfter: r.get("serverDelay") || 50,
+        });
+        u.simulate(o, { sMockdataBaseUrl: a, bGenerateMissingMockData: true });
+        return u;
+      },
+      initSimulates: function (e) {
+        var t = s.getRequests();
+        e.forEach(function (e) {
+          var r = e.method ? e.method.toUpperCase() : "GET";
+          t.push({
+            method: r,
+            path: e.path,
+            response: function (t, r) {
+              var a;
+              if (typeof e.response === "string") {
+                a = e.response;
+              } else if (e.response instanceof Function) {
+                var o;
+                if (e.method === "POST" || e.method === "PUT") {
+                  o = JSON.parse(t.requestBody);
+                }
+                a = e.response(r, o);
+              } else {
+                jQuery.sap.log.error(
+                  "mock server config: invalide config info for request path:" +
+                    e.path,
+                );
+              }
+              if (a === undefined) {
+                jQuery.sap.log.error(
+                  "not found a valide response for request path:" + e.path,
+                );
+              }
+              var s = jQuery.sap.sjax({ url: a });
+              t.respondJSON(200, {}, JSON.stringify(s.data));
+              return true;
+            },
+          });
+        });
+        s.setRequests(t);
+      },
+      getParameterByName: function (e, t) {
+        var r = RegExp("[?&]" + e + "=([^&]*)").exec(t);
+        return r && decodeURIComponent(r[1].replace(/\+/g, " "));
+      },
+    };
+  },
+);
+//# sourceMappingURL=mockserver.js.map
