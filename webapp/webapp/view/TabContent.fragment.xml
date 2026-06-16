@@ -133,7 +133,7 @@
 							<Input id="hu-length-input" class="sapUiSmallMarginBegin" width="80px"
 								editable="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
 								 submit="onHuDimensionsChange"/>
-							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit0"/>
+							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit0" />
 						</HBox>			
 						<HBox id="_IDGenHBox3" class="sapUiMediumMarginBegin" alignItems="Center" fitContainer="true">
 							<Label id="_IDGenLabel2" design="Bold" text="Width"/>
