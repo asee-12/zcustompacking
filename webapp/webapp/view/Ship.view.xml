@@ -76,7 +76,7 @@
 					enabled="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'global>/pendingTaskNumber'}] , formatter:'.formatPrintEnable'}"
 					press="onPrint">
 					<layoutData>
-						<OverflowToolbarLayoutData id="pod---ship--print--button-all" priority="NeverOverflow"/>
+						<OverflowToolbarLayoutData id="pod---ship--print--button" priority="NeverOverflow"/>
 					</layoutData>
 				</Button>
 				<ToolbarSpacer id="pod---ship--space"/>
