@@ -735,7 +735,7 @@ sap.ui.define([
 			this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(oCreateInfo);
 		},
 		onPrint: function () {		//onShip
-			this.getWorkFlowFactory().getPrintWorkFlow().run();
+			this.getWorkFlowFactory().getPrintWorkFlow().run(true);
 		},
 		onShipAll: function () {
 			this.getWorkFlowFactory().getPrintWorkFlow().run(true);

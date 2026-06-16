@@ -71,6 +71,14 @@
 						<OverflowToolbarLayoutData priority="NeverOverflow" id="pod---ship--unpack--button"/>
 					</layoutData>
 				</Button>
+				<!--Add change print button 20260616-->
+				<Button id="print-button" text="{i18n>print}" width="17%"
+					enabled="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'global>/pendingTaskNumber'}] , formatter:'.formatPrintEnable'}"
+					press="onPrint">
+					<layoutData>
+						<OverflowToolbarLayoutData id="pod---ship--print--button-all" priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
 				<ToolbarSpacer id="pod---ship--space"/>
 				<Button id="close-ship-hu" text="{i18n>btnTextClose}" width="17%" type="Accept"
 					enabled="{parts:[{path:'itemModel>/'},{path:'global>/currentShipHandlingUnit'}] , formatter:'.formatCloseBtn'}" press="onCloseCurrentShipHU"
