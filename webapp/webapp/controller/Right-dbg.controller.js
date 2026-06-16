@@ -806,7 +806,7 @@ sap.ui.define([
 			oInpUnit0.setText(preResult.UnitLwh);
             oInpUnit1.setText(preResult.UnitLwh);
             oInpUnit2.setText(preResult.UnitLwh);
-			//end change 20260616
+			//end change 20260616 - set HU UoM when Pack HU is created
 			Global.addShipHandlingUnit(sShipHUId);
 			this.setCurrentShipHandlingUnit(sShipHUId);
 			MaterialHelper.setCurrentMaterialById(mSession.sMaterialId);
