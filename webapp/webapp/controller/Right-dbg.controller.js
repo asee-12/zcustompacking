@@ -792,6 +792,7 @@ sap.ui.define([
 		},
 
 		updateParameterAfterCreation: function (preResult, mSession) {
+			debugger;
 			var sShipHUId = preResult.HuId;
 			mSession.sHuId = preResult.HuId;
 			mSession.fLoadingWeight = Util.parseNumber(Util.formatNumber(preResult.NetWeight, 2));

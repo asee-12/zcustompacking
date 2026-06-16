@@ -4034,7 +4034,6 @@ sap.ui.predefine(
         e.getParameter("bindingParams").filters = r.concat([i, a]);
       },
       updateParameterAfterCreation: function (e, i) {
-        debugger;
         var a = e.HuId;
         i.sHuId = e.HuId;
         i.fLoadingWeight = r.parseNumber(r.formatNumber(e.NetWeight, 2));
