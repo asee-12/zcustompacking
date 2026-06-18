@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
 specVersion: "4.0"
 metadata:
   name: com.sz.packoutbdlv
@@ -14,12 +16,12 @@ builder:
         target:
           destination: aa-s4h-100-pp
           url: http://scm-s4hana01.mscg.local.npp:8001
-          client: "100"
+          client: '100'
         app:
           name: ZEWM_CUST_PACK
           description: Custom Pack App Fixes
           package: ZSUBZERO
-          transport: S4HK900930
+          transport: S4HK900932
         exclude:
           - /test/
           - /localService/
