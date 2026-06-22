@@ -1,0 +1,2 @@
+sap.ui.define(["com/sz/packoutbdlv/workflows/WorkFlow","com/sz/packoutbdlv/utils/Util"],function(n,t){"use strict";return function(t,o){var u=(new n).then(function(){},t).then(function(){},o);u.errors().subscribe("",function(){});return u}});
+//# sourceMappingURL=PackWithDifference-dbg.js.map

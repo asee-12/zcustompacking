@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:smarttable="sap.ui.comp.smarttable" xmlns:sfb="sap.ui.comp.smartfilterbar" id="pod---cancelshipmentdialog--fragmentdefinition" 
+xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="CommodityChangeDialog" title="{i18n>CommodityChange}" stretch="true" busy="{global>/busy}" busyIndicatorDelay="0"
+		afterOpen="onAfterOpenExportData">
+		<smarttable:SmartTable id="CommodityChangeSmartTable" entitySet="CommoditySet" useExportToExcel="false" showTablePersonalisation="false"
+		enableAutoBinding="false" tableType="ResponsiveTable" beforeRebindTable="onBeforeCommodityGetData" editable="true" app:useSmartField="true">
+		</smarttable:SmartTable>
+		<buttons>
+			<Button text="{i18n>CommodityUpdate}" id="pod---CommodityChangeDialog--dialog--button0" press="onCommodityChangeUpdate"
+				type="Emphasized"/>
+			<Button text="{i18n>cancel}" id="pod---CommodityChangeDialog--dialog--button1" press="onCommodityChangeCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

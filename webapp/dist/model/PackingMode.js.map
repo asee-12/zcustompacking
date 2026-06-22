@@ -1,0 +1,1 @@
+{"version":3,"file":"PackingMode.js","names":["sap","ui","define","JSONModel","modes","selectedMode"],"sources":["PackingMode-dbg.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CACb,+BACE,SAASC,GACX,aAEA,OAAO,IAAIA,EAAU,CACpBC,MAAS,GACTC,aAAe,IAEjB","ignoreList":[]}

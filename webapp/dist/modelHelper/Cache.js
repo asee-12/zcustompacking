@@ -1,0 +1,2 @@
+sap.ui.define(["com/sz/packoutbdlv/model/Global","com/sz/packoutbdlv/utils/Util"],function(n,t){"use strict";var u={};var e={};return{updateShipHUConsGroup:function(n,t){u[n]=t},getShipHUConsGroup:function(n){return u[n]===undefined?"":u[n]},clearShipHU:function(n){u[n]=undefined},replaceShipHUConsGroup:function(n,t){var u=this.getShipHUConsGroup(n);this.updateShipHUConsGroup(t,u);this.clearShipHU(n)},setIsEmptyHU:function(n,t){e[n]=t},getIsEmptyHU:function(n){return e[n]===undefined?true:e[n]},reset:function(){u={};e={}}}});
+//# sourceMappingURL=Cache.js.map

@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","com/sz/packoutbdlv/modelHelper/Items","sap/ui/model/json/JSONModel","com/sz/packoutbdlv/control/Audio"],function(e,t,o,i){"use strict";return e.extend("com.sz.packoutbdlv.controller.App",{onInit:function(){this.getView().setModel(this.getOwnerComponent().getModel())},bindAudioList:function(e){this.byId("audio-player").bindItems({path:"/AudioURISet",template:new i({src:"{AudioUri}",type:"{Msgty}"}),filters:e})}})});
+//# sourceMappingURL=App.controller.js.map

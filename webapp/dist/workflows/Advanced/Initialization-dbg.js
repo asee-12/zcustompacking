@@ -1,0 +1,2 @@
+sap.ui.define(["com/sz/packoutbdlv/workflows/WorkFlow","com/sz/packoutbdlv/model/Material"],function(o,n){"use strict";return function(n,t){var r=(new o).then(function(){},n,"init work");return r}});
+//# sourceMappingURL=Initialization-dbg.js.map
