@@ -1,2 +1,269 @@
-sap.ui.define(["com/sz/packoutbdlv/model/Global","com/sz/packoutbdlv/utils/Util","com/sz/packoutbdlv/utils/Const"],function(t,e,r){"use strict";return{getExceptionList:function(){return t.getProperty("/exceptionList")},setExceptionList:function(e){t.setProperty("/exceptionList",e);return this},getSourceId:function(){return t.getProperty("/sourceId")},setSourceId:function(e){t.setProperty("/sourceId",e);return this},getSourceType:function(){return t.getProperty("/sourceType")},setSourceType:function(e){t.setProperty("/sourceType",e);return this},isSourceTypeODO:function(){var t=this.getSourceType();return t===r.SOURCE_TYPE_ODO},setWarehouseNumber:function(e){t.setProperty("/warehouseNumber",e);return this},setPackStation:function(e){t.setProperty("/workstation",e);return this},getWarehouseNumber:function(){return t.getProperty("/warehouseNumber")},setSelectedFeatureSet:function(e){t.setProperty("/selectedFeatureSet",e);return this},getSelectedFeatureSet:function(){return t.getProperty("/selectedFeatureSet")},getPackStation:function(){return t.getProperty("/workstation")},setScaleEnabled:function(e){t.setProperty("/scaleEnabled",e)},getScaleEnabled:function(e){return t.getProperty("/scaleEnabled")},setCurrentShipHandlingUnit:function(e){t.setProperty("/currentShipHandlingUnit",e);return this},getCurrentShipHandlingUnit:function(){return t.getProperty("/currentShipHandlingUnit")},setCurrentShipHuLwhUnit:function(e){t.setProperty("/currentShipHuLwhUnit",e);return this},getCurrentShipHuLwhUnit:function(){return t.getProperty("/currentShipHuLwhUnit")},setCurrentShipHandlingUnitClosed:function(e){t.setProperty("/currentShipHandlingUnitClosed",e);return this},getCurrentShipHandlingUnitClosed:function(){return t.getProperty("/currentShipHandlingUnitClosed")},getShipHandlingUnits:function(){return t.getProperty("/shipHandlingUnits")},removeAllShipHandlingUnits:function(){t.setProperty("/shipHandlingUnits",[]);return this},removeShipHandlingUnit:function(e){var r=t.getProperty("/shipHandlingUnits");var n=r.indexOf(e);if(n!==-1){r.splice(n,1)}t.setProperty("/shipHandlingUnits",r);return this},addShipHandlingUnit:function(e){var r=t.getProperty("/shipHandlingUnits");var n=r.filter(t=>t===e).length>0;if(n){return}r.unshift(e);t.setProperty("/shipHandlingUnits",r);return this},changeShipHandlingUnit:function(e,r){var n=t.getProperty("/shipHandlingUnits");var i=n.indexOf(e);if(i!==-1){n[i]=r}t.setProperty("/shipHandlingUnits",n);return this},setExceptionEnable:function(e){t.setProperty("/exceptionEnable",e)},getExceptionEnable:function(){return t.getProperty("/exceptionEnable")},setCurrentShipHandlingUnitTrackNumber:function(e){t.setProperty("/currentShipHandlingUnitTrackNumber",e)},getCurrentShipHandlingUnitTrackNumber:function(){return t.getProperty("/currentShipHandlingUnitTrackNumber")},setPackAllEnable:function(e){t.setProperty("/packAllEnable",e)},getPackAllEnable:function(){return t.getProperty("/packAllEnable")},setSourceMaterialId:function(e){t.setProperty("/sourceMaterialId",e)},getSourceMaterialId:function(){return t.getProperty("/sourceMaterialId")},isShipHandlingUnitExist:function(r){var n=t.getProperty("/shipHandlingUnits");var i=e.find(n,function(t){if(t===r){return true}return false});if(i){return true}return false},isShipHandlingUintActived:function(t){var e=this.getCurrentShipHandlingUnit();return e===t},hasOpenShipHandlingUnit:function(){var t=this.getShipHandlingUnits();return t.length===0?false:true},setBusy:function(e){t.setProperty("/busy",!!e)},setCloseShipHUEnable:function(e){t.setProperty("/closeShipHUEnable",e)},getCloseShipHUEnable:function(){return t.getProperty("/closeShipHUEnable")},isOnCloud:function(){return t.getProperty("/isOnCloud")},setIsOnCloud:function(e){t.setProperty("/isOnCloud",e);return this},setBin:function(e){t.setProperty("/bin",e);return this},getBin:function(){return t.getProperty("/bin")},setUnpackEnable:function(e){t.setProperty("/unpackEnable",e);return this},getProductId:function(){return t.getProperty("/productId")},setProductId:function(e){t.setProperty("/productId",e);return this},setAsyncMode:function(e){t.setProperty("/asyncMode",e);return this},setHasExportDelivery:function(e){t.setProperty("/hasExportDelivery",e);return this},getAsyncMode:function(){return t.getProperty("/asyncMode")},getHasExportDelivery:function(){return t.getProperty("/hasExportDelivery")},getPendingTaskNumber:function(){return t.getProperty("/pendingTaskNumber")},increasePendingTaskNumber:function(){var e=t.getProperty("/pendingTaskNumber")+1;t.setProperty("/pendingTaskNumber",e);return e},decreasePendingTaskNumber:function(){var e=t.getProperty("/pendingTaskNumber")-1;t.setProperty("/pendingTaskNumber",e>0?e:0);return e},resetPendingTaskNumber:function(){t.setProperty("/pendingTaskNumber",0)},isPackFromBin:function(){return this.getBin()===this.getSourceId()},setIsPickHUInSourceSide:function(e){t.setProperty("/isPickHUInSourceSide",e)},getIsPickHUInSourceSide:function(){return t.getProperty("/isPickHUInSourceSide")},resetFeatures:function(){var e=t.getProperty("/applicationFeatures");e.forEach(function(t){t.disabled=true});t.setProperty("/applicationFeatures",e);return this},setApplicationFeatures:function(e,r){this.resetFeatures();if(!e||e==="")return;var n={};r.filter(t=>t.PackMode===e).forEach(function(t){n[t.PackFeature]=t.Disable});var i=t.getProperty("/applicationFeatures");i.forEach(function(t){t.disabled=n[t.type]!==undefined?n[t.type]:true});t.setProperty("/applicationFeatures",i);return this},getSerialNumberValidationFeature:function(){var e=true;var r=t.getProperty("/applicationFeatures");try{e=r.filter(t=>t.type==="C")[0].disabled}catch(t){}return!e}}});
+sap.ui.define(
+  [
+    "com/sz/packoutbdlv/model/Global",
+    "com/sz/packoutbdlv/utils/Util",
+    "com/sz/packoutbdlv/utils/Const",
+  ],
+  function (t, e, r) {
+    "use strict";
+    return {
+      getExceptionList: function () {
+        return t.getProperty("/exceptionList");
+      },
+      setExceptionList: function (e) {
+        t.setProperty("/exceptionList", e);
+        return this;
+      },
+      getSourceId: function () {
+        return t.getProperty("/sourceId");
+      },
+      setSourceId: function (e) {
+        t.setProperty("/sourceId", e);
+        return this;
+      },
+      getSourceType: function () {
+        return t.getProperty("/sourceType");
+      },
+      setSourceType: function (e) {
+        t.setProperty("/sourceType", e);
+        return this;
+      },
+      isSourceTypeODO: function () {
+        var t = this.getSourceType();
+        return t === r.SOURCE_TYPE_ODO;
+      },
+      setWarehouseNumber: function (e) {
+        t.setProperty("/warehouseNumber", e);
+        return this;
+      },
+      setPackStation: function (e) {
+        t.setProperty("/workstation", e);
+        return this;
+      },
+      getWarehouseNumber: function () {
+        return t.getProperty("/warehouseNumber");
+      },
+      setSelectedFeatureSet: function (e) {
+        t.setProperty("/selectedFeatureSet", e);
+        return this;
+      },
+      getSelectedFeatureSet: function () {
+        return t.getProperty("/selectedFeatureSet");
+      },
+      getPackStation: function () {
+        return t.getProperty("/workstation");
+      },
+      setScaleEnabled: function (e) {
+        t.setProperty("/scaleEnabled", e);
+      },
+      getScaleEnabled: function (e) {
+        return t.getProperty("/scaleEnabled");
+      },
+      setCurrentShipHandlingUnit: function (e) {
+        t.setProperty("/currentShipHandlingUnit", e);
+        return this;
+      },
+      getCurrentShipHandlingUnit: function () {
+        return t.getProperty("/currentShipHandlingUnit");
+      },
+      setCurrentShipHuLwhUnit: function (e) {
+        t.setProperty("/currentShipHuLwhUnit", e);
+        return this;
+      },
+      getCurrentShipHuLwhUnit: function () {
+        return t.getProperty("/currentShipHuLwhUnit");
+      },
+      setCurrentShipHandlingUnitClosed: function (e) {
+        t.setProperty("/currentShipHandlingUnitClosed", e);
+        return this;
+      },
+      getCurrentShipHandlingUnitClosed: function () {
+        return t.getProperty("/currentShipHandlingUnitClosed");
+      },
+      getShipHandlingUnits: function () {
+        return t.getProperty("/shipHandlingUnits");
+      },
+      removeAllShipHandlingUnits: function () {
+        t.setProperty("/shipHandlingUnits", []);
+        return this;
+      },
+      removeShipHandlingUnit: function (e) {
+        var r = t.getProperty("/shipHandlingUnits");
+        var n = r.indexOf(e);
+        if (n !== -1) {
+          r.splice(n, 1);
+        }
+        t.setProperty("/shipHandlingUnits", r);
+        return this;
+      },
+      addShipHandlingUnit: function (e) {
+        var r = t.getProperty("/shipHandlingUnits");
+        var n = r.filter((t) => t === e).length > 0;
+        if (n) {
+          return;
+        }
+        r.unshift(e);
+        t.setProperty("/shipHandlingUnits", r);
+        return this;
+      },
+      changeShipHandlingUnit: function (e, r) {
+        var n = t.getProperty("/shipHandlingUnits");
+        var i = n.indexOf(e);
+        if (i !== -1) {
+          n[i] = r;
+        }
+        t.setProperty("/shipHandlingUnits", n);
+        return this;
+      },
+      setExceptionEnable: function (e) {
+        t.setProperty("/exceptionEnable", e);
+      },
+      getExceptionEnable: function () {
+        return t.getProperty("/exceptionEnable");
+      },
+      setCurrentShipHandlingUnitTrackNumber: function (e) {
+        t.setProperty("/currentShipHandlingUnitTrackNumber", e);
+      },
+      getCurrentShipHandlingUnitTrackNumber: function () {
+        return t.getProperty("/currentShipHandlingUnitTrackNumber");
+      },
+      setPackAllEnable: function (e) {
+        t.setProperty("/packAllEnable", e);
+      },
+      getPackAllEnable: function () {
+        return t.getProperty("/packAllEnable");
+      },
+      setSourceMaterialId: function (e) {
+        t.setProperty("/sourceMaterialId", e);
+      },
+      getSourceMaterialId: function () {
+        return t.getProperty("/sourceMaterialId");
+      },
+      isShipHandlingUnitExist: function (r) {
+        var n = t.getProperty("/shipHandlingUnits");
+        var i = e.find(n, function (t) {
+          if (t === r) {
+            return true;
+          }
+          return false;
+        });
+        if (i) {
+          return true;
+        }
+        return false;
+      },
+      isShipHandlingUintActived: function (t) {
+        var e = this.getCurrentShipHandlingUnit();
+        return e === t;
+      },
+      hasOpenShipHandlingUnit: function () {
+        var t = this.getShipHandlingUnits();
+        return t.length === 0 ? false : true;
+      },
+      setBusy: function (e) {
+        t.setProperty("/busy", !!e);
+      },
+      setCloseShipHUEnable: function (e) {
+        t.setProperty("/closeShipHUEnable", e);
+      },
+      getCloseShipHUEnable: function () {
+        return t.getProperty("/closeShipHUEnable");
+      },
+      isOnCloud: function () {
+        return t.getProperty("/isOnCloud");
+      },
+      setIsOnCloud: function (e) {
+        t.setProperty("/isOnCloud", e);
+        return this;
+      },
+      setBin: function (e) {
+        t.setProperty("/bin", e);
+        return this;
+      },
+      getBin: function () {
+        return t.getProperty("/bin");
+      },
+      setUnpackEnable: function (e) {
+        t.setProperty("/unpackEnable", e);
+        return this;
+      },
+      getProductId: function () {
+        return t.getProperty("/productId");
+      },
+      setProductId: function (e) {
+        t.setProperty("/productId", e);
+        return this;
+      },
+      setAsyncMode: function (e) {
+        t.setProperty("/asyncMode", e);
+        return this;
+      },
+      setHasExportDelivery: function (e) {
+        t.setProperty("/hasExportDelivery", e);
+        return this;
+      },
+      getAsyncMode: function () {
+        return t.getProperty("/asyncMode");
+      },
+      getHasExportDelivery: function () {
+        return t.getProperty("/hasExportDelivery");
+      },
+      getPendingTaskNumber: function () {
+        return t.getProperty("/pendingTaskNumber");
+      },
+      increasePendingTaskNumber: function () {
+        var e = t.getProperty("/pendingTaskNumber") + 1;
+        t.setProperty("/pendingTaskNumber", e);
+        return e;
+      },
+      decreasePendingTaskNumber: function () {
+        var e = t.getProperty("/pendingTaskNumber") - 1;
+        t.setProperty("/pendingTaskNumber", e > 0 ? e : 0);
+        return e;
+      },
+      resetPendingTaskNumber: function () {
+        t.setProperty("/pendingTaskNumber", 0);
+      },
+      isPackFromBin: function () {
+        return this.getBin() === this.getSourceId();
+      },
+      setIsPickHUInSourceSide: function (e) {
+        t.setProperty("/isPickHUInSourceSide", e);
+      },
+      getIsPickHUInSourceSide: function () {
+        return t.getProperty("/isPickHUInSourceSide");
+      },
+      resetFeatures: function () {
+        var e = t.getProperty("/applicationFeatures");
+        e.forEach(function (t) {
+          t.disabled = true;
+        });
+        t.setProperty("/applicationFeatures", e);
+        return this;
+      },
+      setApplicationFeatures: function (e, r) {
+        this.resetFeatures();
+        if (!e || e === "") return;
+        var n = {};
+        r.filter((t) => t.PackMode === e).forEach(function (t) {
+          n[t.PackFeature] = t.Disable;
+        });
+        var i = t.getProperty("/applicationFeatures");
+        i.forEach(function (t) {
+          t.disabled = n[t.type] !== undefined ? n[t.type] : true;
+        });
+        t.setProperty("/applicationFeatures", i);
+        return this;
+      },
+      getSerialNumberValidationFeature: function () {
+        var e = true;
+        var r = t.getProperty("/applicationFeatures");
+        try {
+          e = r.filter((t) => t.type === "C")[0].disabled;
+        } catch (t) {}
+        return !e;
+      },
+    };
+  },
+);
 //# sourceMappingURL=Global.js.map
