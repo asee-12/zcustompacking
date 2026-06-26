@@ -3246,8 +3246,8 @@ sap.ui.predefine(
     n,
     s,
     o,
-    l,
     u,
+    l,
     h,
     g,
     c,
@@ -3273,14 +3273,14 @@ sap.ui.predefine(
     var P = "shipHU-";
     var D = "weight-chart-id";
     var B = "weight-comparison-id";
-    var W = "actual-weight-input";
-    var w = "empty-material-msg-strip";
+    var w = "actual-weight-input";
+    var W = "empty-material-msg-strip";
     var A = "no-change-strip";
     var x = "empty-material-strip";
     var F = "packaging-material-table";
     return e.extend("com.sz.packoutbdlv.controller.Right", {
-      oItemHelper: new o(new l([])),
-      oColumnSettingsHelper: new v(new l([])),
+      oItemHelper: new o(new u([])),
+      oColumnSettingsHelper: new v(new u([])),
       init: function () {
         sap.ui.Device.resize.attachHandler(
           function () {
@@ -3430,10 +3430,10 @@ sap.ui.predefine(
         }
         var s = e.byId("right-grid");
         var o = t.byId("left-grid");
-        var l = document.getElementById(s.getId());
-        var u = document.getElementById(o.getId());
-        var h = l.offsetTop + l.offsetHeight;
-        var g = u.offsetTop + u.offsetHeight;
+        var u = document.getElementById(s.getId());
+        var l = document.getElementById(o.getId());
+        var h = u.offsetTop + u.offsetHeight;
+        var g = l.offsetTop + l.offsetHeight;
         if (g > h) {
           i.setHeight(g + "px");
           a.setHeight(g + "px");
@@ -3527,15 +3527,15 @@ sap.ui.predefine(
           this.showErrorMessageBox(o);
           return;
         }
-        var l = s.getCurrentMaterialId();
-        if (r.isEmpty(l)) {
-          var u = {};
-          u.sHuId = "";
-          u.sMaterialId = n;
+        var u = s.getCurrentMaterialId();
+        if (r.isEmpty(u)) {
+          var l = {};
+          l.sHuId = "";
+          l.sMaterialId = n;
           this.setBusy(true);
-          this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(u);
+          this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(l);
         } else {
-          if (l === n) {
+          if (u === n) {
             return;
           } else {
             this.setBusy(true);
@@ -3611,13 +3611,13 @@ sap.ui.predefine(
           .byId("product-input")
           .focus();
         this.clearComboBox("other-material-combo");
-        this.setMessageStripVisible(w, false);
+        this.setMessageStripVisible(W, false);
         s.clearFormerPressedMaterial();
         s.setSelectedMaterialId("");
         this.updateInputWithDefault(h.ID.CREATE_SHIP_INPUT, "");
       },
       handleButtonsEnableAfterCreate: function (e) {
-        if (!r.isEmpty(t.getSourceId()) && !u.isShipHUClosed()) {
+        if (!r.isEmpty(t.getSourceId()) && !l.isShipHUClosed()) {
           if (e.isSingleConsGroupNoReduction && !e.isSNEnable) {
             t.setPackAllEnable(true);
           }
@@ -3671,7 +3671,7 @@ sap.ui.predefine(
                 preAssigned: e.TrackNum && e.TrackNum !== "" ? true : false,
               };
             });
-            this.oTrkNumberDialog.setModel(new l(o), "trackNumberModel");
+            this.oTrkNumberDialog.setModel(new u(o), "trackNumberModel");
             if (!this.oTrkNumberDialog.isOpen()) {
               this.oTrkNumberDialog.setBusy(false);
               this.oTrkNumberDialog.open();
@@ -3731,7 +3731,7 @@ sap.ui.predefine(
           };
         });
         var a = new H({ items: { path: "/", template: t } });
-        var r = new l(i);
+        var r = new u(i);
         a.setModel(r);
         new E({
           title: this.getI18nText("trackingNumberUpdateMessagesDialog", []),
@@ -3816,7 +3816,7 @@ sap.ui.predefine(
         var i = t.getShipHandlingUnits();
         var a = [];
         i.forEach(function (t) {
-          if (g.getShipHUConsGroup(t) === e && !u.isShipHUClosed(t)) {
+          if (g.getShipHUConsGroup(t) === e && !l.isShipHUClosed(t)) {
             a.push(t);
           }
         });
@@ -3905,7 +3905,7 @@ sap.ui.predefine(
           s.clearFormerPressedMaterial();
           var r = s.getMaterialIdByPath(a);
           s.setSelectedMaterialId(r);
-          this.setMessageStripVisible(w, false);
+          this.setMessageStripVisible(W, false);
           this.clearComboBox("other-material-combo");
         } else {
           s.setSelectedMaterialId("");
@@ -3926,7 +3926,7 @@ sap.ui.predefine(
               this.updateInputWithDefault("other-material-combo");
               s.clearFormerPressedMaterial();
               s.setSelectedMaterialId(n);
-              this.setMessageStripVisible(w, false);
+              this.setMessageStripVisible(W, false);
               var o = t.getBin();
               if (!o || o.trim() === "") {
                 this.focus("bin-input");
@@ -3949,20 +3949,20 @@ sap.ui.predefine(
         var n = a.getValue();
         var o = t.getBin();
         if (o.trim() === "") {
-          var l = this.getView().byId("bin-input");
-          o = l.getValue();
+          var u = this.getView().byId("bin-input");
+          o = u.getValue();
           if (o.trim() === "") {
-            l.setValueState(p.Error);
-            l.setValueStateText(this.getI18nText("enterStorageBin", []));
+            u.setValueState(p.Error);
+            u.setValueStateText(this.getI18nText("enterStorageBin", []));
             return;
           } else {
-            l.setValue("");
-            l.setValueState(p.None);
+            u.setValue("");
+            u.setValueState(p.None);
           }
         }
-        var u = s.getSelectedMaterialId();
-        if (r.isEmpty(u)) {
-          this.setMessageStripVisible(w, true);
+        var l = s.getSelectedMaterialId();
+        if (r.isEmpty(l)) {
+          this.setMessageStripVisible(W, true);
           this.playAudio(h.ERROR);
           return;
         } else if (s.IsSelectedMaterialExternal("")) {
@@ -3976,7 +3976,7 @@ sap.ui.predefine(
         var g = {};
         g.sHuId = n;
         g.sBin = o;
-        g.sMaterialId = u;
+        g.sMaterialId = l;
         g.oDialog = i;
         i.setBusy(true);
         this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(g);
@@ -4002,7 +4002,7 @@ sap.ui.predefine(
           t.attachAfterClose(function () {
             this.getView().byId("cancelShipFilterBar").fireClear();
           }, this);
-          t.setModel(new l({ selectedKey: "01" }), "filterSelectCSD");
+          t.setModel(new u({ selectedKey: "01" }), "filterSelectCSD");
           e.addDependent(t);
         }
         t.open();
@@ -4038,6 +4038,24 @@ sap.ui.predefine(
         i.sHuId = e.HuId;
         i.fLoadingWeight = r.parseNumber(r.formatNumber(e.NetWeight, 2));
         i.sWeightUoM = e.WeightUoM;
+        var n = sap.ui.core.Fragment.createId(
+          this.getTabId(sHuId),
+          "hu-lwh-unit0",
+        );
+        var o = sap.ui.core.Fragment.createId(
+          this.getTabId(sHuId),
+          "hu-lwh-unit1",
+        );
+        var u = sap.ui.core.Fragment.createId(
+          this.getTabId(sHuId),
+          "hu-lwh-unit2",
+        );
+        var l = sap.ui.getCore().byId(n);
+        var h = sap.ui.getCore().byId(o);
+        var g = sap.ui.getCore().byId(u);
+        l.setText(e.UnitLwh);
+        h.setText(e.UnitLwh);
+        g.setText(e.UnitLwh);
         t.addShipHandlingUnit(a);
         this.setCurrentShipHandlingUnit(a);
         s.setCurrentMaterialById(i.sMaterialId);
@@ -4053,7 +4071,7 @@ sap.ui.predefine(
         this.oItemHelper.clear();
       },
       handlePackAllEnableAfterCreate: function (e) {
-        if (!r.isEmpty(t.getSourceId()) && !u.isShipHUClosed()) {
+        if (!r.isEmpty(t.getSourceId()) && !l.isShipHUClosed()) {
           if (e.isSingleConsGroupNoReduction && !e.isSNEnable) {
             t.setPackAllEnable(true);
           }
@@ -4124,7 +4142,7 @@ sap.ui.predefine(
         var a = this.getView().byId(h.ID.CHANGE_SHIP_INPUT).getValue();
         var n = s.getCurrentMaterialId();
         var o = s.getSelectedMaterialId();
-        var l = t.getCurrentShipHandlingUnit();
+        var u = t.getCurrentShipHandlingUnit();
         this.setMessageStripVisible(h.ID.ERROR_MATERIAL_STRIP, false);
         if (r.isEmpty(o)) {
           this.setMessageStripVisible(x, true);
@@ -4137,8 +4155,8 @@ sap.ui.predefine(
             return;
           }
         }
-        var u = s.getOriginalMaterialId();
-        if (o === u && l === a) {
+        var l = s.getOriginalMaterialId();
+        if (o === l && u === a) {
           if (!this.getView().byId(A).getVisible()) {
             this.getView().byId(A).setVisible(true);
             this.playAudio(h.WARNING);
@@ -4182,7 +4200,7 @@ sap.ui.predefine(
               this.updateInputWithDefault("change-material-combo");
               s.clearFormerPressedMaterial();
               s.setSelectedMaterialId(i);
-              this.setMessageStripVisible(w, false);
+              this.setMessageStripVisible(W, false);
               if (i !== s.getOriginalMaterialId()) {
                 this.setMessageStripVisible(A, false);
               }
@@ -4205,25 +4223,25 @@ sap.ui.predefine(
             var s = n.byId("shipHUBar");
             if (e !== t) {
               var o = this.getTabIndexByTitle(e);
-              var l = this.getTabByTitle(e);
-              l.destroy();
-              var u;
+              var u = this.getTabByTitle(e);
+              u.destroy();
+              var l;
               if (i) {
-                u = sap.ui.xmlfragment(
+                l = sap.ui.xmlfragment(
                   this.getTabId(t),
                   "com.sz.packoutbdlv.view.SimpleTabContent",
                   this,
                 );
               } else {
-                u = sap.ui.xmlfragment(
+                l = sap.ui.xmlfragment(
                   this.getTabId(t),
                   "com.sz.packoutbdlv.view.TabContent",
                   this,
                 );
               }
-              u.setKey(t);
-              u.setText(t);
-              s.insertItem(u, o);
+              l.setKey(t);
+              l.setText(t);
+              s.insertItem(l, o);
               s.setSelectedKey(t);
               this.delayCalledAdjustContainerHeight();
               g.replaceShipHUConsGroup(e, t);
@@ -4285,7 +4303,7 @@ sap.ui.predefine(
           } else {
             this.updateInputWithDefault(t);
             var o = t.getBindingContext(h.ITEM_MODEL_NAME).getObject();
-            var l = {
+            var u = {
               oProduct: o,
               iQuantity: r.formatNumber(
                 r.parseNumber(i) - r.parseNumber(o.PreviousAlterQuan),
@@ -4293,8 +4311,8 @@ sap.ui.predefine(
               ),
               mSource: t,
             };
-            if (l.iQuantity !== 0) {
-              this.getWorkFlowFactory().getQuantityChangeWorkFlow().run(l);
+            if (u.iQuantity !== 0) {
+              this.getWorkFlowFactory().getQuantityChangeWorkFlow().run(u);
             }
           }
         } else {
@@ -4324,7 +4342,7 @@ sap.ui.predefine(
       checkActualWeight: function (e, a) {
         var n = e.getSource();
         var o = r.trim(e.getParameter("newValue"));
-        var l = r.isEmpty(o);
+        var u = r.isEmpty(o);
         var g = r.parseNumber(o);
         var c = r.formatNumber(g, 3);
         var d = r.parseNumber(
@@ -4335,7 +4353,7 @@ sap.ui.predefine(
         );
         var f = d + p;
         var m;
-        if (l) {
+        if (u) {
           this.updateInputWithDefault(n, "");
         } else if (isNaN(g)) {
           this.updateInputWithError(n);
@@ -4346,7 +4364,7 @@ sap.ui.predefine(
           if (!this.checkQuantityOverflow(g, n)) {
             this.updateInputWithDefault(n, c);
           }
-          var I = u.getHUInfo(t.getCurrentShipHandlingUnit(), h.SHIP_TYPE_HU);
+          var I = l.getHUInfo(t.getCurrentShipHandlingUnit(), h.SHIP_TYPE_HU);
           c = r.parseNumber(n.getValue()).toString();
           this.setBusy(true);
           var v = i.updateHU(I, c);
@@ -4421,34 +4439,34 @@ sap.ui.predefine(
           return e + " " + t + " " + i;
         }
       },
-      updateZDimensionsRelated: function (e, i, a, n, s, o, l) {
-        if (r.isEmpty(l)) {
-          l = t.getCurrentShipHandlingUnit();
+      updateZDimensionsRelated: function (e, i, a, n, s, o, u) {
+        if (r.isEmpty(u)) {
+          u = t.getCurrentShipHandlingUnit();
         }
-        var u = sap.ui.core.Fragment.createId(
-          this.getTabId(l),
+        var l = sap.ui.core.Fragment.createId(
+          this.getTabId(u),
           "hu-length-input",
         );
         var h = sap.ui.core.Fragment.createId(
-          this.getTabId(l),
+          this.getTabId(u),
           "hu-width-input",
         );
         var g = sap.ui.core.Fragment.createId(
-          this.getTabId(l),
+          this.getTabId(u),
           "hu-height-input",
         );
         var c = sap.ui.core.Fragment.createId(
-          this.getTabId(l),
+          this.getTabId(u),
           "hu-volume-input",
         );
         var d = sap.ui.core.Fragment.createId(
-          this.getTabId(l),
+          this.getTabId(u),
           "hu-volume-unit",
         );
-        var p = sap.ui.core.Fragment.createId(this.getTabId(l), "hu-lwh-unit0");
-        var f = sap.ui.core.Fragment.createId(this.getTabId(l), "hu-lwh-unit1");
-        var m = sap.ui.core.Fragment.createId(this.getTabId(l), "hu-lwh-unit2");
-        var I = sap.ui.getCore().byId(u);
+        var p = sap.ui.core.Fragment.createId(this.getTabId(u), "hu-lwh-unit0");
+        var f = sap.ui.core.Fragment.createId(this.getTabId(u), "hu-lwh-unit1");
+        var m = sap.ui.core.Fragment.createId(this.getTabId(u), "hu-lwh-unit2");
+        var I = sap.ui.getCore().byId(l);
         var v = sap.ui.getCore().byId(p);
         var S = sap.ui.getCore().byId(h);
         var b = sap.ui.getCore().byId(f);
@@ -4491,24 +4509,24 @@ sap.ui.predefine(
         );
         var s = sap.ui.getCore().byId(a);
         var o = sap.ui.getCore().byId(r);
-        var l = sap.ui.getCore().byId(n);
+        var u = sap.ui.getCore().byId(n);
         if (this.checkErrorDimensionsValue(s.getValue())) {
           this.focus(s);
           return;
         } else if (this.checkErrorDimensionsValue(o.getValue())) {
           this.focus(o);
           return;
-        } else if (this.checkErrorDimensionsValue(l.getValue())) {
-          this.focus(l);
+        } else if (this.checkErrorDimensionsValue(u.getValue())) {
+          this.focus(u);
           return;
         }
-        let u = {
+        let l = {
           Huid: i,
           Length: s.getValue(),
-          Height: l.getValue(),
+          Height: u.getValue(),
           Width: o.getValue(),
         };
-        this.getWorkFlowFactory().getUpdateShipHuDimensionsWorkflow().run(u);
+        this.getWorkFlowFactory().getUpdateShipHuDimensionsWorkflow().run(l);
       },
       updateNetWeightRelated: function (e, i, a) {
         e = r.parseNumber(r.formatNumber(e, 2));
@@ -4517,12 +4535,12 @@ sap.ui.predefine(
         }
         var n = sap.ui.core.Fragment.createId(this.getTabId(a), D);
         var o = sap.ui.getCore().byId(n);
-        var l = o.getActual();
-        var u = r.parseNumber(
+        var u = o.getActual();
+        var l = r.parseNumber(
           r.formatNumber(s.getCurrentMaterialMaxWeight(), 2),
         );
-        l.setColor(this.getWeightChartColor(e, u));
-        l.setValue(e);
+        u.setColor(this.getWeightChartColor(e, l));
+        u.setValue(e);
         this.updateWeightChartToolTip(e);
         n = sap.ui.core.Fragment.createId(this.getTabId(a), B);
         var h = sap.ui.getCore().byId(n);
@@ -4549,13 +4567,13 @@ sap.ui.predefine(
             parseFloat(s.getCurrentMaterialMaxWeight()),
             2,
           );
-          var l = r.formatNumber(
+          var u = r.formatNumber(
             parseFloat(s.getCurrentMaterialMaxWeightTol()),
             2,
           );
-          var u = this.getI18nText("toolTipTxt", [a, n, o, n, l, n]);
+          var l = this.getI18nText("toolTipTxt", [a, n, o, n, u, n]);
           var h = this.getWeightChartByTitle(i);
-          h.setTooltip(u);
+          h.setTooltip(l);
         }
       },
       getWeightChartByTitle: function (e) {
@@ -4600,7 +4618,7 @@ sap.ui.predefine(
         }
       },
       clearActualWeight: function (e) {
-        var t = sap.ui.core.Fragment.createId(this.getTabId(e), W);
+        var t = sap.ui.core.Fragment.createId(this.getTabId(e), w);
         var i = sap.ui.getCore().byId(t);
         this.updateInputWithDefault(i, "");
       },
@@ -4665,7 +4683,7 @@ sap.ui.predefine(
       },
       updateShippingHUMaterial: function (e) {
         this.setCurrentShipHandlingUnit(e);
-        var t = u.getShipHUMaterialId(e);
+        var t = l.getShipHUMaterialId(e);
         var i = s.getMaterialById(t);
         s.setCurrentMaterial(i);
       },
@@ -4941,11 +4959,11 @@ sap.ui.predefine(
       },
       setCurrentShipHandlingUnit: function (e) {
         t.setCurrentShipHandlingUnit(e);
-        t.setCurrentShipHandlingUnitTrackNumber(u.getShipHUTrackingNumber(e));
+        t.setCurrentShipHandlingUnitTrackNumber(l.getShipHUTrackingNumber(e));
         if (r.isEmpty(e)) {
           t.setCurrentShipHandlingUnitClosed(false);
         } else {
-          t.setCurrentShipHandlingUnitClosed(u.isShipHUClosed(e));
+          t.setCurrentShipHandlingUnitClosed(l.isShipHUClosed(e));
         }
       },
       updateShipItemStatus: function () {
@@ -5111,8 +5129,8 @@ sap.ui.predefine(
               var s = t.getSourceId();
               if (n !== s) {
                 var o = t.getBin();
-                var l = this.getI18nText("unpackToBin", [n, o]);
-                a.addSuccess(l);
+                var u = this.getI18nText("unpackToBin", [n, o]);
+                a.addSuccess(u);
                 this.setBusy(false);
                 r(h.ERRORS.INTERRUPT_WITH_NO_ACTION);
               }
@@ -5132,9 +5150,9 @@ sap.ui.predefine(
                 }
               });
               if (o !== -1) {
-                var l = t.getBin();
-                var u = this.getI18nText("unpackAllToBin", [s, l]);
-                a.addSuccess(u);
+                var u = t.getBin();
+                var l = this.getI18nText("unpackAllToBin", [s, u]);
+                a.addSuccess(l);
               }
               o = r.findIndex(e, function (e) {
                 if (e.EWMRefDeliveryDocumentNumber === s) {
