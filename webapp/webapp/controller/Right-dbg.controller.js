@@ -798,9 +798,9 @@ sap.ui.define([
 			mSession.fLoadingWeight = Util.parseNumber(Util.formatNumber(preResult.NetWeight, 2));
 			mSession.sWeightUoM = preResult.WeightUoM;
 			//add change 20260616 - set HU UoM when Pack HU is created
-			var huLWHUnit0 = sap.ui.core.Fragment.createId(this.getTabId(sHuId), "hu-lwh-unit0");
-            var huLWHUnit1 = sap.ui.core.Fragment.createId(this.getTabId(sHuId), "hu-lwh-unit1");
-            var huLWHUnit2 = sap.ui.core.Fragment.createId(this.getTabId(sHuId), "hu-lwh-unit2");
+			var huLWHUnit0 = sap.ui.core.Fragment.createId(this.getTabId(mSession.sHuId), "hu-lwh-unit0");
+            var huLWHUnit1 = sap.ui.core.Fragment.createId(this.getTabId(mSession.sHuId), "hu-lwh-unit1");
+            var huLWHUnit2 = sap.ui.core.Fragment.createId(this.getTabId(mSession.sHuId), "hu-lwh-unit2");
 			var oInpUnit0 = sap.ui.getCore().byId(huLWHUnit0);
 			var oInpUnit1 = sap.ui.getCore().byId(huLWHUnit1);
 			var oInpUnit2 = sap.ui.getCore().byId(huLWHUnit2);

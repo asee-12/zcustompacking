@@ -21,7 +21,7 @@ builder:
           name: ZEWM_CUST_PACK
           description: Custom Pack App Fixes
           package: ZSUBZERO
-          transport: S4HK900932
+          transport: S4HK900964
         exclude:
           - /test/
           - /localService/
