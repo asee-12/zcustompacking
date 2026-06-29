@@ -4043,9 +4043,9 @@ sap.ui.predefine(
         var huLWHUnit0 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit0");
         var huLWHUnit1 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit1");
         var huLWHUnit2 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit2");			
-        var oInpUnit0 = this.byId(huLWHUnit0);
-        var oInpUnit1 = this.byId(huLWHUnit1);
-        var oInpUnit2 = this.byId(huLWHUnit2);
+        var oInpUnit0 = this.getView().byId(huLWHUnit0);
+        var oInpUnit1 = this.getView().byId(huLWHUnit1);
+        var oInpUnit2 = this.getView().byId(huLWHUnit2);
         oInpUnit0.setText(e.UnitLwh);
         oInpUnit1.setText(e.UnitLwh);
         oInpUnit2.setText(e.UnitLwh);
