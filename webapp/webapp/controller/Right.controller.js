@@ -832,15 +832,29 @@ sap.ui.define(
         i.fLoadingWeight = r.parseNumber(r.formatNumber(e.NetWeight, 2));
         i.sWeightUoM = e.WeightUoM;
         //add change 20260616 - set HU UoM when Pack HU is created
-        var huLWHUnit0 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit0");
-        var huLWHUnit1 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit1");
-        var huLWHUnit2 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit2");			
-        var oInpUnit0 = this.getView().byId(huLWHUnit0);
-        var oInpUnit1 = this.getView().byId(huLWHUnit1);
-        var oInpUnit2 = this.getView().byId(huLWHUnit2);
-        oInpUnit0.setText(e.UnitLwh);
-        oInpUnit1.setText(e.UnitLwh);
-        oInpUnit2.setText(e.UnitLwh);
+
+        var fragmentID = this.getView().createId("pod---tabcontent--fragmentdefinition");
+        var lwhUnit1 = "hu-lwh-unit0";
+        var lwhUnit2 = "hu-lwh-unit1";
+        var lwhUnit3 = "hu-lwh-unit2";
+
+        var huLWHUnit0 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit1);
+        var huLWHUnit1 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit2);
+        var huLWHUnit2 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit3);
+
+        huLWHUnit0.setText(e.UnitLwh);
+        huLWHUnit1.setText(e.UnitLwh);
+        huLWHUnit2.setText(e.UnitLwh);
+
+        //var huLWHUnit0 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit0");
+        //var huLWHUnit1 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit1");
+        //var huLWHUnit2 = sap.ui.core.Fragment.createId(this.getTabId(a), "hu-lwh-unit2");			
+        //var oInpUnit0 = this.getView().byId(huLWHUnit0);
+        //var oInpUnit1 = this.getView().byId(huLWHUnit1);
+        //var oInpUnit2 = this.getView().byId(huLWHUnit2);
+        //oInpUnit0.setText(e.UnitLwh);
+        //oInpUnit1.setText(e.UnitLwh);
+        //oInpUnit2.setText(e.UnitLwh);
         //end change 20260616 - set HU UoM when Pack HU is created        
         t.addShipHandlingUnit(a);
         this.setCurrentShipHandlingUnit(a);
