@@ -10,6 +10,9 @@ sap.ui.define([
 		"materialLayout": [],
 		"selectedMaterialId": "",
 		"defaultMaterialId": "",
-		"originalMaterialId": ""
+		"originalMaterialId": "",
+		//20260630
+		"unitLWH": "",
+		"unitVol": ""
 	});
 });
