@@ -836,8 +836,8 @@ sap.ui.define(
         s.setCurrentMaterialById(i.sMaterialId);
         //20260630 - update the material odata model
         //with the vol and lwh uom
-        s.setCurrentLWHUoM(e.unitLWH);
-        s.setCurrentVolUoM(e.unitVol);
+        s.setCurrentLWHUoM(e.UnitLwh);
+        s.setCurrentVolUoM(e.UnitGv);
       },
       updateMaterialButtonsAfterCreation: function (e) {
         var t = s.getDefaultMaterialId();

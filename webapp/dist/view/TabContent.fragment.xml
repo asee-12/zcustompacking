@@ -133,28 +133,28 @@
 							<Input id="hu-length-input" class="sapUiSmallMarginBegin" width="80px"
 								editable="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
 								 submit="onHuDimensionsChange"/>
-							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit0" />
+							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit0" text="{material>/unitLWH}"/>
 						</HBox>			
 						<HBox id="_IDGenHBox3" class="sapUiMediumMarginBegin" alignItems="Center" fitContainer="true">
 							<Label id="_IDGenLabel2" design="Bold" text="Width"/>
 							<Input id="hu-width-input" class="sapUiSmallMarginBegin" width="80px"
 								editable="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
 								 submit="onHuDimensionsChange"/>
-							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit1" />
+							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit1" text="{material>/unitLWH}"/>
 						</HBox>
 						<HBox id="_IDGenHBox4" class="sapUiMediumMarginBegin" alignItems="Center" fitContainer="true">
 							<Label id="_IDGenLabel3" design="Bold" text="Height"/>
 							<Input id="hu-height-input" class="sapUiSmallMarginBegin" width="80px"
 								editable="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
 								 submit="onHuDimensionsChange"/>
-							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit2"/>
+							<Text class="sapUiTinyMarginBegin" id="hu-lwh-unit2" text="{material>/unitLWH}"/>
 						</HBox>
 					</HBox>
 					<HBox id="_IDGenHBox5" fitContainer="true">
 						<HBox id="_IDGenHBox6" alignItems="Center" fitContainer="true">
 							<Label id="_IDGenLabel4" design="Bold" text="Volume"/>
 							<Input id="hu-volume-input" class="sapUiSmallMarginBegin" width="80px" editable="false"/>
-							<Text class="sapUiTinyMarginBegin" id="hu-volume-unit"/>
+							<Text class="sapUiTinyMarginBegin" id="hu-volume-unit" text="{material>/unitVol}"/>
 						</HBox>
 					</HBox>
 				</HBox>
