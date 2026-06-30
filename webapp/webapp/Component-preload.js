@@ -4668,7 +4668,11 @@ sap.ui.predefine(
         this.setCurrentShipHandlingUnit(e);
         var t = u.getShipHUMaterialId(e);
         var i = s.getMaterialById(t);
+        //20260630
+        var x = u.getShipHUUnitLWH(e); "UnitLWH"
         s.setCurrentMaterial(i);
+        //20260630
+        s.setCurrentUnitLWH(x);
       },
       clearComboBox: function (e) {
         this.getView().byId(e).clearSelection();
@@ -8441,6 +8445,10 @@ sap.ui.predefine(
       setCurrentMaterial: function (e) {
         t.setProperty("/currentMaterial", e);
       },
+      //20260630
+      setCurrentUnitLWH: function (e) {
+        t.setProperty("/UnitLWH", e);
+      },
       getCurrentMaterial: function () {
         return t.getProperty("/currentMaterial");
       },
@@ -8694,6 +8702,11 @@ sap.ui.predefine(
           this.getHUPath(e, t.SHIP_TYPE_HU.toString()) + "/PackagingMaterial";
         return n.getProperty(r);
       },
+      //20260630
+      getShipHUUnitLWH: function (e) {
+        var r = this.getHUPath(e, t.SHIP_TYPE_HU.toString()) + "/UnitLWH";
+        return n.getProperty(r);  
+    },
       getShipHUTrackingNumber: function (e) {
         var r = this.getHUPath(e, t.SHIP_TYPE_HU.toString()) + "/TrackNumber";
         return n.getProperty(r);
