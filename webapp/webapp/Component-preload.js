@@ -4039,22 +4039,6 @@ sap.ui.predefine(
         i.sHuId = e.HuId;
         i.fLoadingWeight = r.parseNumber(r.formatNumber(e.NetWeight, 2));
         i.sWeightUoM = e.WeightUoM;
-        //add change 20260616 - set HU UoM when Pack HU is created
-
-        var fragmentID = this.getView().createId("pod---tabcontent--fragmentdefinition");
-        var lwhUnit1 = "hu-lwh-unit0";
-        var lwhUnit2 = "hu-lwh-unit1";
-        var lwhUnit3 = "hu-lwh-unit2";
-
-        var huLWHUnit0 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit1);
-        var huLWHUnit1 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit2);
-        var huLWHUnit2 = sap.ui.core.Fragment.byId(fragmentID, lwhUnit3);
-
-        huLWHUnit0.setText(e.UnitLwh);
-        huLWHUnit1.setText(e.UnitLwh);
-        huLWHUnit2.setText(e.UnitLwh);
-
-			//end change 20260616 - set HU UoM when Pack HU is created
         t.addShipHandlingUnit(a);
         this.setCurrentShipHandlingUnit(a);
         s.setCurrentMaterialById(i.sMaterialId);
