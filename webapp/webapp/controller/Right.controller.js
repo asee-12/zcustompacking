@@ -834,6 +834,10 @@ sap.ui.define(
         t.addShipHandlingUnit(a);
         this.setCurrentShipHandlingUnit(a);
         s.setCurrentMaterialById(i.sMaterialId);
+        //20260630 - update the material odata model
+        //with the vol and lwh uom
+        s.setCurrentLWHUoM(e.unitLWH);
+        s.setCurrentVolUoM(e.unitVol);
       },
       updateMaterialButtonsAfterCreation: function (e) {
         var t = s.getDefaultMaterialId();

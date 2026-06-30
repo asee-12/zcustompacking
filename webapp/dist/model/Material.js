@@ -1,2 +1,2 @@
-sap.ui.define(["sap/ui/model/json/JSONModel"],function(e){"use strict";return new e({otherMaterials:[],favoriteMaterials:[],currentMaterial:{},materialLayout:[],selectedMaterialId:"",defaultMaterialId:"",originalMaterialId:""})});
+sap.ui.define(["sap/ui/model/json/JSONModel"],function(e){"use strict";return new e({otherMaterials:[],favoriteMaterials:[],currentMaterial:{},materialLayout:[],selectedMaterialId:"",defaultMaterialId:"",originalMaterialId:"",unitLWH:"",unitVol:""})});
 //# sourceMappingURL=Material.js.map

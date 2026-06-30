@@ -104,6 +104,14 @@ sap.ui.define(
       setCurrentMaterial: function (e) {
         t.setProperty("/currentMaterial", e);
       },
+      //20260630
+      setCurrentLWHUoM: function (e) {
+        t.setProperty("/unitLWH", e);
+      },
+      //20260630
+      setCurrentVolUoM: function (e) {
+        t.setProperty("/unitVol", e);
+      },
       getCurrentMaterial: function () {
         return t.getProperty("/currentMaterial");
       },
@@ -112,6 +120,14 @@ sap.ui.define(
       },
       getCurrentMaterialUom: function () {
         return t.getProperty("/currentMaterial/MaxWeightUoM");
+      },
+      //20260630
+      getCurrentLWHUom: function () {
+        return t.getProperty("/unitLWH");
+      },
+      //20260630
+      getCurrentVolUom: function () {
+        return t.getProperty("/unitVol");
       },
       setOriginalMaterialId: function (e) {
         t.setProperty("/originalMaterialId", e);
