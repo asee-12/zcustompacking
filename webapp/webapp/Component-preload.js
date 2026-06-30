@@ -4042,6 +4042,8 @@ sap.ui.predefine(
         t.addShipHandlingUnit(a);
         this.setCurrentShipHandlingUnit(a);
         s.setCurrentMaterialById(i.sMaterialId);
+        //20260630
+        s.setCurrentUnitLWH(e.UnitLwh);
       },
       updateMaterialButtonsAfterCreation: function (e) {
         var t = s.getDefaultMaterialId();
@@ -4669,7 +4671,7 @@ sap.ui.predefine(
         var t = u.getShipHUMaterialId(e);
         var i = s.getMaterialById(t);
         //20260630
-        var x = u.getShipHUUnitLWH(e); "UnitLWH"
+        var x = u.getShipHUUnitLWH(e); //"UnitLWH"
         s.setCurrentMaterial(i);
         //20260630
         s.setCurrentUnitLWH(x);
