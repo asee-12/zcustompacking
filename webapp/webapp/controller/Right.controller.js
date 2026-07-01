@@ -1465,6 +1465,11 @@ sap.ui.define(
         var t = u.getShipHUMaterialId(e);
         var i = s.getMaterialById(t);
         s.setCurrentMaterial(i);
+        //20260630 
+        var x = s.getCurrentLWHUoM(t);
+        var y = s.getCurrentVolUom(t);        
+        s.setCurrentLWHUoM(x);
+        s.setCurrentVolUoM(y);
       },
       clearComboBox: function (e) {
         this.getView().byId(e).clearSelection();
